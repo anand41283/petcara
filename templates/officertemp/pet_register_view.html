@@ -1,0 +1,43 @@
+{% extends 'officertemp/officer_home.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card">
+                <h5 class="card-header">PET REGISTER</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                          <th>Pet Id</th>
+                        <th>Owner</th>
+                        <th>Licence No.</th>
+                        <th>Expiry Date</th>
+                        <th>Pet Type</th>
+                        <th>Breed</th>
+                        <th>Vaccinated</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    {% for p in p %}
+                      <tr>
+                          <td>{{forloop.counter}}</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{p.owner}}</strong></td>
+                        <td>{{p.licence_no}}</td>
+                        <td>{{p.expiry_date}}</td>
+                          <td>{{p.pet_type}}</td>
+                        <td>{{p.breed}}</td>
+                          <td>{{p.vaccinated}}</td>
+                        <td>
+                          <a   href="{% url 'pet_update' p.id %}" class="btn btn-primary">Edit</a>
+                        </td>
+                        <td>
+                            <a  href="{% url 'pet_delete' p.id %}" class="btn btn-danger">Delete</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'usertemp/user_home.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-12 grid-margin stretch-card">
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Doctors</h4>
+        <div class="table-responsive pt-3">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact No</th>
+                <th>Qualification</th>
+                <th>Address</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.phone_number}}</td>
+                    <td>{{i.qualification}}</td>
+                    <td>{{i.address}}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6"><h3>No Results Found</h3></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

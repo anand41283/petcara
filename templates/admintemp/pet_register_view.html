@@ -1,0 +1,57 @@
+{% extends 'admintemp/admin_home.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card">
+                <nav class="navbar navbar-expand-lg navbar-light mb-5">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="javascript:void(0)">PET REGISTER</a>
+                </div>
+              </nav>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>owner</th>
+                        <th>Licence No.</th>
+                        <th>Expiry Date</th>
+                        <th>Pet Type</th>
+                        <th>Breed</th>
+                        <th>Vaccinated</th>
+                        <th>Licence Status</th>
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    {% for p in p %}
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{p.owner}}</strong></td>
+                        <td style="color:black">{{p.licence_no}}</b></td>
+                        <td style="color:black">{{p.expiry_date}}</b></td>
+                        <td style="color:black">{{p.pet_type}}</b></td>
+                        <td style="color:black">{{p.breed}}</td>
+                        <td style="color:black">{{p.vaccinated}}</td>
+                        <td style="color:black">{% if p.status == 0 %}
+                          <a href="{% url 'approve_pet' p.id %}" class="btn btn-success">Accept</a>
+                          <a href="{% url 'reject_pet' p.id %}" class="btn btn-danger">Reject</a>
+                          {% elif p.status == 1 %}
+                          <button type="button" class="btn btn-success">Accepted</button>
+                          {% else %}
+                          <button type="button" class="btn btn-danger">Rejected</button>
+                          {% endif %}
+                        </td>
+                        <td><form action="{% url 'pet_register_del' p.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                          </form>
+                        </td>
+                      </tr>
+                    {% empty %}
+                    <tr>
+                      <td colspan="6"><h3>No Results Found</h3></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+{% endblock %}

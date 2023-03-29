@@ -1,0 +1,66 @@
+{% extends 'admintemp/admin_home.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-info" role="alert">
+    <strong>{{message}}</strong>
+</div>
+{% endfor %}
+<div class="col-12 grid-margin stretch-card">
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Customers</h4>
+        <div class="table-responsive pt-3">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact No</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th colspan="2">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.username}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.phone_number}}</td>
+                    <td>{{i.age}}</td>
+                    <td>{{i.gender}}</td>
+                    <td>{{i.address}}</td>
+                    <td>
+                        {% if i.status == 0 %}
+                        <a href="{% url 'accept_customer' i.id %}" style="color:green">Approve</a>
+                        <a href="{% url 'reject_customer' i.id %}" style="color:red">Reject</a>
+                        {% elif i.status == True %}
+                        <button type="button" class="btn btn-success">Approved</button>
+                        {% else %}
+                        <button type="button" class="btn btn-danger">Rejected</button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6"><h3>No Results Found</h3></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <script>
+            function myFunction() {
+            alert("Deleted");
+            }
+</script>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

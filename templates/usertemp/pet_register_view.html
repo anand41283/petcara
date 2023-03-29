@@ -1,0 +1,67 @@
+{% extends 'usertemp/user_home.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card">
+                <nav class="navbar navbar-expand-lg navbar-light mb-5">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="javascript:void(0)">My Pet Details</a>
+                  <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                  >
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    </ul>
+                    <form class="d-flex" onsubmit="return false">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                      <button class="btn btn-outline-primary" type="submit">Search</button>
+                    </form>
+                  </div>
+                </div>
+              </nav>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Licence No.</th>
+                        <th>Licence Expiry Date</th>
+                        <th>Pet Type</th>
+                        <th>Breed</th>
+                        <th>Vaccinated</th>
+                        <th>Licence Status</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    {% for p in p %}
+                      <tr>
+                        <td style="color:black">{{p.licence_no}}</b></td>
+                        <td style="color:black">{{p.expiry_date}}</b></td>
+                        <td style="color:black">{{p.pet_type}}</b></td>
+                        <td style="color:black">{{p.breed}}</td>
+                        <td style="color:black">{{p.vaccinated}}</td>
+                        <td style="color:black">{% if p.status == 0 %}
+                          <p>Approval Pending</p>
+                          {% elif p.status == 1 %}
+                          <p>Approved</p>
+                          {% else %}
+                          <p>Rejected</p>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% empty %}
+                    <tr>
+                      <td colspan="5"><h3>NO Results Found</h3></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+{% endblock %}
